@@ -131,7 +131,10 @@ dec cnt ; Decrementar el registro contador
 brne loop6 ; Si no es cero, volver al segundo bucle
 dec tmp ; Decrementar el registro temporal
 brne loop5 ; Si no es cero, volver al primer bucle
-ret ; Retornar al punto de							
+ret ; Retornar al punto de	llamada
+
+;COMENTARIO DE PRUEBA DE ACTUALIZACIONES
+;++++++++++++++						
 								
 
 
