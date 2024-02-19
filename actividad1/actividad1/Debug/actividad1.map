@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Fri Feb 16 19:26:56 2024
+AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Mon Feb 19 03:02:29 2024
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,27 +695,15 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-DEF  tmp          r16
-DEF  cnt          r17
-DEF  inp          r18
-DEF  outl         r19
-EQU  led          00000000
-EQU  btn          00000000
-CSEG loop         00000006
-CSEG freq1        00000011
-CSEG freq2        0000001d
-CSEG freq3        00000029
-CSEG freq4        00000035
-CSEG delay1       00000012
-CSEG wait_50ms    00000041
-CSEG delay2       0000001e
-CSEG wait_25ms    00000049
-CSEG delay3       0000002a
-CSEG wait_12ms    00000051
-CSEG delay4       00000036
-CSEG loop1        00000042
-CSEG loop2        00000043
-CSEG loop3        0000004a
-CSEG loop4        0000004b
-CSEG loop5        00000052
-CSEG loop6        00000053
+CSEG start        00000000
+CSEG loop         00000005
+CSEG case1        00000010
+CSEG case2        0000001b
+CSEG case3        00000026
+CSEG case4        00000035
+CSEG defaut       0000000e
+CSEG done         0000003e
+CSEG L1           00000014
+CSEG L2           0000001f
+CSEG L3           0000002b
+CSEG L4           00000038

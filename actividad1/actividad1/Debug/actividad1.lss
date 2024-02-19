@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Fri Feb 16 19:26:56 2024
+AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Mon Feb 19 03:02:29 2024
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
@@ -998,127 +998,93 @@ AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.
                                  ; Mediante 4 entradas posibles encender y apagar un led a diferentes frecuencias
                                  
                                  
+                                 		.org 0
+                                 start:
+000000 e000                      	ldi r16,0x00
+000001 b90a                      	out ddrd,r16 ;puerto D como entrada
+000002 b90b                      	out portd,r16 ;activa el pull-up del puerto D
                                  
-                                 .def tmp = r16 ; Definir un registro temporal
-                                 .def cnt = r17 ; Definir un registro contador
-                                 .def inp = r18 ; Definir un registro para la entrada
-                                 .def outl = r19 ; Definir un registro para la salida
+000003 e210                      	ldi r17,0x20
+000004 b914                      	out ddrb,r17 ;puerto PB5-led como salida
                                  
-                                 .equ led = 0 ; Definir el pin del led
-                                 .equ btn = 0 ; Definir el pin del botón
+                                 loop:
+000005 b109                      	in	r16,pind
+000006 3000                      	cpi	r16,0x00
+000007 f041                      	breq case1
+000008 3001                      	cpi r16,0x01
+000009 f089                      	breq case2
+00000a 3002                      	cpi r16,0x02
+00000b f0d1                      	breq case3
+00000c 3004                      	cpi r16,0x04
+00000d f139                      	breq case4
+                                 	
+                                 defaut:
+00000e 982d                      	cbi portb,5
+00000f c02e                      	rjmp done
+                                 	
+                                 case1:
+000010 9a2d                      	sbi portb,5
                                  
-000000 ef0f                      ldi tmp, 0xff ; Cargar el valor 0xff en el registro temporal
-000001 b904                      out ddrb, tmp ; Configurar el puerto B como salida
-000002 b905                      out portb, tmp ; Encender el led
+000011 e522                      	ldi  r18, 82
+000012 e23b                          ldi  r19, 43
+000013 ef4f                          ldi  r20, 255
+000014 954a                      L1: dec  r20
+000015 f7f1                          brne L1
+000016 953a                          dec  r19
+000017 f7e1                          brne L1
+000018 952a                          dec  r18
+000019 f7d1                          brne L1
+00001a 9508                      	ret
                                  
-000003 e000                      ldi tmp, 0x00 ; Cargar el valor 0x00 en el registro temporal
-000004 b907                      out ddrc, tmp ; Configurar el puerto C como entrada
-000005 b908                      out portc, tmp ; Habilitar el pull-up 
+                                 case2:
+00001b 9a2d                      	sbi portb,5
                                  
-                                 loop: ; Etiqueta del bucle principal
-000006 b126                      in inp, pinc ; Leer el valor del puerto C en el registro de entrada
-000007 7023                      andi inp, 0x03 ; Aplicar una máscara para quedarse solo con los bits 0 y 1
-000008 3020                      cpi inp, 0x00 ; Comparar el registro de entrada con el valor 0x00
-000009 f039                      breq freq1 ; Si son iguales, saltar a la etiqueta freq1
-00000a 3021                      cpi inp, 0x01 ; Comparar el registro de entrada con el valor 0x01
-00000b f089                      breq freq2 ; Si son iguales, saltar a la etiqueta freq2
-00000c 3022                      cpi inp, 0x02 ; Comparar el registro de entrada con el valor 0x02
-00000d f0d9                      breq freq3 ; Si son iguales, saltar a la etiqueta freq3
-00000e 3023                      cpi inp, 0x03 ; Comparar el registro de entrada con el valor 0x03
-00000f f129                      breq freq4 ; Si son iguales, saltar a la etiqueta freq4
-000010 cff5                      rjmp loop ; Si no, volver al bucle principal
+00001c ec2b                      	ldi  r18, 203
+00001d ee3c                          ldi  r19, 236
+00001e e843                          ldi  r20, 131
+00001f 954a                      L2: dec  r20
+000020 f7f1                          brne L2
+000021 953a                          dec  r19
+000022 f7e1                          brne L2
+000023 952a                          dec  r18
+000024 f7d1                          brne L2
+000025 9508                      	ret
                                  
-                                 freq1: ; Etiqueta para la frecuencia de 1 Hz
-000011 e01a                      ldi cnt, 10 ; Cargar el valor 10 en el registro contador
-                                 delay1: ; Etiqueta para el retardo
-000012 ef0f                      ldi tmp, 0xff ; Cargar el valor 0xff en el registro temporal
-000013 b905                      out portb, tmp ; Encender el led
-000014 940e 0041                 call wait_50ms ; Llamar a la subrutina wait_50ms
-000016 e000                      ldi tmp, 0x00 ; Cargar el valor 0x00 en el registro temporal
-000017 b905                      out portb, tmp ; Apagar el led
-000018 940e 0041                 call wait_50ms ; Llamar a la subrutina wait_50ms
-00001a 951a                      dec cnt ; Decrementar el registro contador
-00001b f7b1                      brne delay1 ; Si no es cero, volver a la etiqueta delay1
-00001c cfe9                      rjmp loop ; Volver al bucle principal
+                                 case3:
+000026 9a2d                      	sbi portb,5
                                  
-                                 freq2: ; Etiqueta para la frecuencia de 2 Hz
-00001d e01a                      ldi cnt, 10 ; Cargar el valor 10 en el registro contador
-                                 delay2: ; Etiqueta para el retardo
-00001e ef0f                      ldi tmp, 0xff ; Cargar el valor 0xff en el registro temporal
-00001f b905                      out portb, tmp ; Encender el led
-000020 940e 0049                 call wait_25ms ; Llamar a la subrutina wait_25ms
-000022 e000                      ldi tmp, 0x00 ; Cargar el valor 0x00 en el registro temporal
-000023 b905                      out portb, tmp ; Apagar el led
-000024 940e 0049                 call wait_25ms ; Llamar a la subrutina wait_25ms
-000026 951a                      dec cnt ; Decrementar el registro contador
-000027 f7b1                      brne delay2 ; Si no es cero, volver a la etiqueta delay2
-000028 cfdd                      rjmp loop ; Volver al bucle principal
+000027 e120                      	ldi  r18, 16
+000028 ed3b                          ldi  r19, 219
+000029 e647                          ldi  r20, 103
+00002a e750                          ldi  r21, 112
+00002b 955a                      L3: dec  r21
+00002c f7f1                          brne L3
+00002d 954a                          dec  r20
+00002e f7e1                          brne L3
+00002f 953a                          dec  r19
+000030 f7d1                          brne L3
+000031 952a                          dec  r18
+000032 f7c1                          brne L3
+000033 c000                          rjmp PC+1
+000034 9508                      	ret
                                  
-                                 freq3: ; Etiqueta para la frecuencia de 4 Hz
-000029 e01a                      ldi cnt, 10 ; Cargar el valor 10 en el registro contador
-                                 delay3: ; Etiqueta para el retardo
-00002a ef0f                      ldi tmp, 0xff ; Cargar el valor 0xff en el registro temporal
-00002b b905                      out portb, tmp ; Encender el led
-00002c 940e 0051                 call wait_12ms ; Llamar a la subrutina wait_12ms
-00002e e000                      ldi tmp, 0x00 ; Cargar el valor 0x00 en el registro temporal
-00002f b905                      out portb, tmp ; Apagar el led
-000030 940e 0051                 call wait_12ms ; Llamar a la subrutina wait_12ms
-000032 951a                      dec cnt ; Decrementar el registro contador
-000033 f7b1                      brne delay3 ; Si no es cero, volver a la etiqueta delay3
-000034 cfd1                      rjmp loop ; Volver al bucle principal
+                                 case4:
+000035 9a2d                      	sbi portb,5
                                  
-                                 freq4: ; Etiqueta para la frecuencia de 8 Hz
-000035 e01a                      ldi cnt, 10 ; Cargar el valor 10 en el registro contador
-                                 delay4: ; Etiqueta para el retardo
-000036 ef0f                      ldi tmp, 0xff ; Cargar el valor 0xff en el registro temporal
-000037 b905                      out portb, tmp ; Encender el led
-000038 940e 0041                 call wait_50ms ; Llamar a la subrutina wait_50ms
-00003a e000                      ldi tmp, 0x00 ; Cargar el valor 0x00 en el registro temporal
-00003b b905                      out portb, tmp ; Apagar el led
-00003c 940e 0041                 call wait_50ms ; Llamar a la subrutina wait_50ms
-00003e 951a                      dec cnt ; Decrementar el registro contador
-00003f f7b1                      brne delay4 ; Si no es cero, volver a la etiqueta delay4
-000040 cfc5                      rjmp loop ; Volver al bucle principal
+                                 	
+000036 e023                          ldi  r18, 3
+000037 e130                          ldi  r19, 16
+000038 953a                      L4: dec  r19
+000039 f7f1                          brne L4
+00003a 952a                          dec  r18
+00003b f7e1                          brne L4
+00003c c000                          rjmp PC+1
+00003d 9508                      	ret
                                  
-                                 wait_50ms: ; Subrutina para esperar 50 milisegundos
-                                 ; Se asume que el reloj del microcontrolador es de 16 MHz
-000041 e006                      ldi tmp, 6 ; Cargar el valor 6 en el registro temporal
-                                 loop1: ; Etiqueta del primer bucle
-000042 ef1a                      ldi cnt, 250 ; Cargar el valor 250 en el registro contador
-                                 loop2: ; Etiqueta del segundo bucle
-000043 0000                      nop ; No hacer nada
-000044 951a                      dec cnt ; Decrementar el registro contador
-000045 f7e9                      brne loop2 ; Si no es cero, volver al segundo bucle
-000046 950a                      dec tmp ; Decrementar el registro temporal
-000047 f7d1                      brne loop1 ; Si no es cero, volver al primer bucle
-000048 9508                      ret ; Retornar al punto de llamada
-                                 
-                                 wait_25ms: ; Subrutina para esperar 25 milisegundos
-                                 ; Se asume que el reloj del microcontrolador es de 16 MHz
-000049 e003                      ldi tmp, 3 ; Cargar el valor 3 en el registro temporal
-                                 loop3: ; Etiqueta del primer bucle
-00004a ef1a                      ldi cnt, 250 ; Cargar el valor 250 en el registro contador
-                                 loop4: ; Etiqueta del segundo bucle
-00004b 0000                      nop ; No hacer nada
-00004c 951a                      dec cnt ; Decrementar el registro contador
-00004d f7e9                      brne loop4 ; Si no es cero, volver al segundo bucle
-00004e 950a                      dec tmp ; Decrementar el registro temporal
-00004f f7d1                      brne loop3 ; Si no es cero, volver al primer bucle
-000050 9508                      ret ; Retornar al punto de llamada
-                                 
-                                 wait_12ms: ; Subrutina para esperar 12 milisegundos
-                                 ; Se asume que el reloj del microcontrolador es de 16 MHz
-000051 e001                      ldi tmp, 1 ; Cargar el valor 1 en el registro temporal
-                                 loop5: ; Etiqueta del primer bucle
-000052 ef1a                      ldi cnt, 250 ; Cargar el valor 250 en el registro contador
-                                 loop6: ; Etiqueta del segundo bucle
-000053 0000                      nop ; No hacer nada
-000054 951a                      dec cnt ; Decrementar el registro contador
-000055 f7e9                      brne loop6 ; Si no es cero, volver al segundo bucle
-000056 950a                      dec tmp ; Decrementar el registro temporal
-000057 f7d1                      brne loop5 ; Si no es cero, volver al primer bucle
-000058 9508                      ret ; Retornar al punto de	llamada
-                                 
+                                 done:		 
+00003e cfc6                      	rjmp loop		
+                                 		
+                                 		
                                  ;COMENTARIO DE PRUEBA DE ACTUALIZACIONES
                                  ;++++++++++++++						
                                  								
@@ -1143,37 +1109,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  28 r17:  14 r18:   6 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:   8 r17:   2 r18:   8 r19:   8 r20:   6 
+r21:   2 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 3 out of 35 (8.6%)
+Registers used: 6 out of 35 (17.1%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
-andi  :   1 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :  10 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   8 cbi   :   0 cbr   :   0 
+brne  :  12 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   4 cpse  :   0 dec   :  10 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   4 cpse  :   0 dec   :  12 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   3 or    :   0 ori   :   0 out   :  12 pop   :   0 
-push  :   0 rcall :   0 ret   :   3 reti  :   0 rjmp  :   5 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   3 pop   :   0 
+push  :   0 rcall :   0 ret   :   4 reti  :   0 rjmp  :   4 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   4 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 12 out of 113 (10.6%)
+Instructions used: 11 out of 113 (9.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000b2    178      0    178   32768   0.5%
+[.cseg] 0x000000 0x00007e    126      0    126   32768   0.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
