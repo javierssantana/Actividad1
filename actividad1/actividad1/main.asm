@@ -29,7 +29,7 @@ loop:
 	breq case2
 	cpi r16,0x02
 	breq case3
-	cpi r16,0x04
+	cpi r16,0x03
 	breq case4
 	
 defaut:
@@ -53,9 +53,9 @@ L1: dec  r20
 case2:
 	sbi portb,5
 
-	ldi  r18, 203
-    ldi  r19, 236
-    ldi  r20, 131
+	ldi  r18, 33
+    ldi  r19, 120
+    ldi  r20, 151
 L2: dec  r20
     brne L2
     dec  r19
@@ -67,26 +67,22 @@ L2: dec  r20
 case3:
 	sbi portb,5
 
-	ldi  r18, 16
-    ldi  r19, 219
-    ldi  r20, 103
-    ldi  r21, 112
-L3: dec  r21
-    brne L3
-    dec  r20
+	ldi  r18, 2
+    ldi  r19, 160
+    ldi  r20, 145
+L3: dec  r20
     brne L3
     dec  r19
     brne L3
     dec  r18
     brne L3
-    rjmp PC+1
 	ret
 
 case4:
 	sbi portb,5
 
 	
-    ldi  r18, 3
+    ldi  r18, 3				
     ldi  r19, 16
 L4: dec  r19
     brne L4
@@ -94,6 +90,7 @@ L4: dec  r19
     brne L4
     rjmp PC+1
 	ret
+	
 
 done:		 
 	rjmp loop		

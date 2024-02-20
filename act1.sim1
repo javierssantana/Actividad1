@@ -16,16 +16,16 @@
 
 <item itemtype="Ground" CircId="Ground-44" mainComp="false" Show_id="false" Show_Val="false" Pos="948,580" rotation="0" hflip="1" vflip="1" label="Ground-44" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Connector" uid="connector-23" startpinid="Led-2-lPin" endpinid="mega328-1-PORTB5" pointList="1100,636,1072,636" />
+<item itemtype="Connector" uid="connector-53" startpinid="Led-2-lPin" endpinid="mega328-1-PORTB5" pointList="1100,636,1072,636" />
 
-<item itemtype="Connector" uid="connector-24" startpinid="Ground-4-Gnd" endpinid="Led-2-rPin" pointList="1140,648,1140,636,1132,636" />
+<item itemtype="Connector" uid="connector-54" startpinid="Ground-4-Gnd" endpinid="Led-2-rPin" pointList="1140,648,1140,636,1132,636" />
 
-<item itemtype="Connector" uid="Connector-36" startpinid="Switch-34-switch0pinN" endpinid="mega328-1-PORTD0" pointList="1000,556,1012,556,1012,572,1024,572" />
+<item itemtype="Connector" uid="connector-55" startpinid="Switch-34-switch0pinN" endpinid="mega328-1-PORTD0" pointList="1000,556,1012,556,1012,572,1024,572" />
 
-<item itemtype="Connector" uid="Connector-37" startpinid="Switch-35-switch0pinN" endpinid="mega328-1-PORTD1" pointList="1000,592,1012,592,1012,580,1024,580" />
+<item itemtype="Connector" uid="connector-56" startpinid="Switch-35-switch0pinN" endpinid="mega328-1-PORTD1" pointList="1000,592,1012,592,1012,580,1024,580" />
 
-<item itemtype="Connector" uid="Connector-45" startpinid="Switch-34-pinP0" endpinid="Ground-44-Gnd" pointList="968,556,948,556,948,564" />
+<item itemtype="Connector" uid="Connector-60" startpinid="Switch-35-pinP0" endpinid="Ground-43-Gnd" pointList="968,592,948,592,948,604" />
 
-<item itemtype="Connector" uid="Connector-47" startpinid="Switch-35-pinP0" endpinid="Fixed Voltage-38-outnod" pointList="968,592,928,592,928,576" />
+<item itemtype="Connector" uid="Connector-61" startpinid="Switch-34-pinP0" endpinid="Ground-44-Gnd" pointList="968,556,948,556,948,564" />
 
 </circuit>

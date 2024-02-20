@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Mon Feb 19 03:02:29 2024
+AVRASM ver. 2.2.8  C:\Users\javie\Desktop\Actividad1\actividad1\actividad1\main.asm Tue Feb 20 09:18:28 2024
 
 
 EQU  SIGNATURE_000 0000001e
@@ -700,10 +700,10 @@ CSEG loop         00000005
 CSEG case1        00000010
 CSEG case2        0000001b
 CSEG case3        00000026
-CSEG case4        00000035
+CSEG case4        00000031
 CSEG defaut       0000000e
-CSEG done         0000003e
+CSEG done         0000003a
 CSEG L1           00000014
 CSEG L2           0000001f
-CSEG L3           0000002b
-CSEG L4           00000038
+CSEG L3           0000002a
+CSEG L4           00000034
